@@ -1,28 +1,21 @@
-
-const membersData = [
-    {
-        "name": "John Doe",
-        "description": "Frontend Developer",
-        "image": "https://via.placeholder.com/100",
-    },
-    {
-        "name": "Jane Smith",
-        "description": "Backend Developer",
-        "image": "https://via.placeholder.com/100",
-    },
-    {
-        "name": "Alice Johnson",
-        "description": "Full Stack Engineer",
-        "image": "https://via.placeholder.com/100",
+// Function to fetch the member data from data.json
+async function fetchMemberData() {
+    try {
+        const response = await fetch('data.json');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('Error fetching member data:', error);
+        return [];
     }
-];
- 
+}
 
 // Function to render the member data on the page
-async function fetchMembers() {
+async function renderMembers() {
     try {
-        // Simulating fetching the data (replace with actual fetch API call if needed)
-        const members = membersData;
+        const members = await fetchMemberData();
 
         // Get the container div where the member cards will be displayed
         const steeringCouncil = document.getElementById('steeringCouncil');
@@ -37,7 +30,7 @@ async function fetchMembers() {
         members.forEach(member => {
             // Create a new div element for each member card
             const memberCard = document.createElement('div');
-            memberCard.className = "cc flex flex-col gap-8 items-center justify-around text-center w-[260px] bg-gray-900 rounded-lg p-6 shadow-lg";
+            memberCard.className = "cc flex flex-col gap-8 items-center justify-around text-center w-[260px] rounded-lg p-6 shadow-lg";
 
             // Define the inner content for each card
             memberCard.innerHTML = `
@@ -56,10 +49,9 @@ async function fetchMembers() {
             steeringCouncil.appendChild(memberCard);
         });
     } catch (error) {
-        console.error('Error fetching members:', error);
+        console.error('Error rendering members:', error);
     }
 }
 
 // Call the function to fetch and display members when the page loads
-document.addEventListener('DOMContentLoaded', fetchMembers);
-
+document.addEventListener('DOMContentLoaded', renderMembers);
