@@ -16,6 +16,7 @@ const membersData = [
         "image": "https://via.placeholder.com/100",
     }
 ];
+ 
 
 // Function to render the member data on the page
 async function fetchMembers() {
