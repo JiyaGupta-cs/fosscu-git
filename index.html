@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Page</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+
+    <nav class="flex bg-bg-black p-4 px-12 items-center justify-between">
+      <div class="flex gap-3">
+            <img src="https://fosscu.org/fosscu.png" alt="logo" width="36" height="36" />
+            <div class="text-white font-semibold text-3xl">FOSSCU</div>
+        </div>
+
+        <button class='px-7 py-2 bg-custom-green-gradient font-medium rounded-full text-white hover:opacity-50 lg:flex items-center'>Explore</button>
+
+    </nav>
+
+    <div class="flex flex-col gap-8 py-12">
+        <h2 class="text-[#0DFF1C] text-gradient text-7xl my-3 mb-8 text-center font-black">Getting Started With Git</h2>
+
+        <div class="flex justify-around items-center gap-4 p-8 text-white flex-wrap" id="steeringCouncil">
+            <!-- Members will be dynamically inserted here -->
+        </div>
+    </div>
+
+    <footer class="p-6 py-8 flex justify-center items-center bg-[#141718]">
+        <div class="flex-col md:flex text-center gap-6 justify-center items-center">
+            <p class="text-[#0DFF1C] font-bold py-2 text-2xl" >FOSSCU</p>
+            <p class="text-[#D1D5DB]">Made with 💚 and Open Source</p>  
+        </div>
+              
+        </footer>
+
+    <script src="index.js"></script>
+</body>
+
+</html>
