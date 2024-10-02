@@ -200,9 +200,6 @@
   z-index: 10;
 }
 
-.box:hover .content img {
-  /* opacity: 0; */
-}
 
 .content h2 {
   position: relative;
@@ -247,4 +244,19 @@ body{
 .bg-custom-green-gradient   {
   /* background: linear-gradient(to bottom, #0DFF1C, #000);  */
   background: linear-gradient(180deg, #00FF00 0%, #008500 99.99%, #006900 100%); 
+}
+
+.loader {
+  border: 8px solid #707070; /* Light grey */
+  border-top: 8px solid #00b50c; /* Spinner color */
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+  z-index: 1001; /* Ensure loader is above the blur */
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
