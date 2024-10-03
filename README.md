@@ -1,74 +1,107 @@
-# How to make your first contribution ???
-This documentation aims to simplify and guide the way beginners make their first contribution. If you are looking to make your first contribution, follow the steps below.
-#### If you don't have git on your machine install it.
-## Fork this repository
- Fork this repository by clicking on the fork button on the top of this page.
- This will create a copy of this repository in your account.
-## Clone the repository
- Now clone the forked repository to your machine. Go to your GitHub account, open the forked repository, click on the code button and then click on open with Github Desktop ot you can click on  *copy to clipboard* icon if you want to use git bash.
-**Note: Further command are for Git bash users not for the Git Desktop Users**
-> For Git Desktop users ---> Now just click on Open with VS code and start your contribution.
-## Commit Changes
- After you have updated the files,click on 'Commit to main' and then click on push origin.
- Now Come back to Github web and click on contribute to submit your changes for review.
-***
-## Steps for Git Bash Users 
-Open a terminal and run the following git command:
-```
-git clone https://github.com/JiyaGupta-cs/fosscu-git
-```
-where "url you just copied" (without the quotation marks) is the url to this repository (your fork of this project). See the previous steps to obtain the url.
-For example:
-```
-git clone https://github.com/JiyaGupta-cs/fosscu-git
+# How to Fork a Repo & Make a Pull Request
+
+### Step 1: Fork the Repository
+
+1. Go to the original repository on GitHub.
+2. Click the **Fork** button (top right corner). This creates a copy in your GitHub account.
+
+### Step 2: Clone Your Fork
+
+1. Open your terminal.
+2. Clone your forked repository:
+   ```bash
+   git clone <your_fork_url>
+   ```
+   Replace `<your_fork_url>` with the URL of your fork (found on your GitHub fork page).
+
+### Step 3: Change Directory
+
+Navigate to the directory of your cloned repository:
+```bash
+cd <repository_name>
 ```
 
+### Step 4: Make Your Changes
 
+Edit the files you want to change using your favorite text editor.
 
- Here you're copying the contents of the first-contributions repository on GitHub to your computer.
-## Create a branch
-Change to the repository directory on your computer (if you are not already there):
-```
-cd desktop
-```
-Now create a branch using the `git checkout` command:
-```
-git checkout -b <your-new-branch-name>
-```
-For example:
-```
-git checkout -b add-new-file
-```
-(The name of the branch does not need to have the word *add* in it, but it's a reasonable thing to include because the purpose of this branch is to add your name to a list.)
-## Make necessary changes and commit those changes
-Now open add or edit file in a text editor. Add code for any existing algorithm in other language or add some new algorithms. Make sure to update correspond README.md file if needed. Now, save the file.
-If you go to the project directory and execute the command `git status`, you'll see there are changes.
-Add those changes to the branch you just created using the `git add` command:
+### Step 5: Stage and Commit Your Changes
 
-```
-upstream
+1. Stage your changes:
+   ```bash
+   git add .
+   ```
+2. Commit your changes:
+   ```bash
+   git commit -m "Your commit message here"
+   ```
+
+### Step 6: Push Your Changes to Your Fork
+
+Push your changes to your fork on GitHub:
+```bash
+git push -u origin master
 ```
 
-```
-git remote rename origin
+### Step 7: Create a Pull Request
 
+1. Go to your forked repository on GitHub.
+2. Click on **Compare & pull request**.
+3. Fill out the details and click **Create pull request**.
+
+### Step 8: Add the Original Repository as Upstream
+
+After creating the pull request, add the original repository as a remote called `upstream`:
+```bash
+git remote add upstream <original_repo_url>
+```
+Replace `<original_repo_url>` with the URL of the original repository.
+
+### Step 9: Pull Updates from Upstream
+
+1. Switch to your `master` branch:
+   ```bash
+   git checkout master
+   ```
+2. Pull the latest changes from the upstream repository:
+   ```bash
+   git pull upstream master
+   ```
+
+### Step 10: Push Any New Updates (if needed)
+
+If you pulled new updates, push them back to your fork (optional):
+```bash
+git push origin master
 ```
 
+---
+
+#### Summary of Commands for Making a PR
+
+```bash
+# Step 1: Clone your fork
+git clone <your_fork_url>
+cd <repository_name>
+
+# Step 2: Make changes, then stage and commit
+git add .
+git commit -m "Your commit message here"
+
+# Step 3: Push your changes
+git push -u origin master
+
+# Step 4: Create a pull request (done on GitHub)
+
+# Step 5: Add upstream repository
+git remote add upstream <original_repo_url>
+
+# Step 6: Pull latest updates from upstream
+git checkout master
+git pull upstream master
+
+# Step 7: Push any new updates if needed
+git push origin master
 ```
-git add "name of the file you add or edit"
-```
-Now commit those changes using the `git commit` command:
-```
-git commit -m "Add message for the change"
-```
-## Push changes to GitHub
-Push your changes using the command `git push`:
-```
-git push origin <add-your-branch-name>
-```
-replacing `<add-your-branch-name>` with the name of the branch you created earlier.
-## Submit your changes for review
-If you go to your repository on GitHub, you'll see a `Contribute` button. Click on that button.
-click on `Open pull request`.
-click on `Create pull request`.
-...add git remote rename origin, upstream, git remote add origin add them
+
+---
