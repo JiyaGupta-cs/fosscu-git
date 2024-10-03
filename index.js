@@ -4,7 +4,7 @@ async function fetchMembers() {
 
     loader.style.display = 'flex';  // Show the loader initially
 
-    const categories = ["IT", "CSE", "CSE(AI)", "CSE(AIML)", "CS", "ECE", "ME"];
+    const categories = ["ADMIN","IT", "CSE", "CSE(AI)", "CSE(AIML)", "CS", "ECE", "ME"];
     const startNumber = 1000;
     const endNumber = 1400;
 
