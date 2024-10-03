@@ -2,7 +2,7 @@ async function fetchMembers() {
     const steeringCouncil = document.getElementById('steeringCouncil');
     const loader = document.getElementById('loader');
 
-    loader.style.display = 'flex';  // Show the loader
+    loader.style.display = 'flex';  // Show the loader initially
 
     const categories = ["IT", "CSE", "CSE(AI)", "CSE(AIML)", "CS", "ECE", "ME"];
     const startNumber = 1000;
@@ -17,16 +17,23 @@ async function fetchMembers() {
         }
     }
 
-    const batchSize = 10;  // Process files in batches of 10 to optimize performance
+    const batchSize = 10;  // Process files in batches of 10
     const validMembers = [];  // Array to hold valid member data
+    let firstMemberLoaded = false;  // Flag to track if at least one member is loaded
 
     const fetchMember = async (file) => {
         try {
             const response = await fetch(file);
             if (response.ok) {
                 const data = await response.json();
-                validMembers.push(data);  // Push valid data into the array
+                validMembers.push(data);
                 displayMember(data);  // Display each member as soon as data is available
+
+                // Hide the loader as soon as the first valid member is fetched
+                if (!firstMemberLoaded) {
+                    loader.style.display = 'none';
+                    firstMemberLoaded = true;  // Set flag to true after the first load
+                }
             } else {
                 console.warn(`Unable to fetch ${file}: ${response.status}`);
             }
@@ -59,15 +66,11 @@ async function fetchMembers() {
         const currentBatch = jsonFiles.slice(i, i + batchSize);
         const promises = currentBatch.map(fetchMember);
         await Promise.all(promises);  // Wait for all promises in the current batch to resolve
-
-        // You could add a small delay to improve perceived performance if needed
-        // await new Promise(resolve => setTimeout(resolve, 200));  // Optional: Add delay between batches
     }
 
-    loader.style.display = 'none';  // Hide the loader after fetching all members
-
-    // Handle case where no valid members were fetched
-    if (validMembers.length === 0) {
+    // If no valid members were fetched, hide the loader and display a message
+    if (!firstMemberLoaded) {
+        loader.style.display = 'none';  // Hide the loader if no members were loaded
         steeringCouncil.innerHTML = '<p>No members found.</p>';
     }
 }
