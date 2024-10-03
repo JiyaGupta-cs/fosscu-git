@@ -4,24 +4,28 @@ async function fetchMembers() {
 
     loader.style.display = 'flex';  // Show the loader initially
 
-    const categories = ["ADMIN","IT", "CSE", "CSE(AI)", "CSE(AIML)", "CS", "ECE", "ME"];
-    const startNumber = 1;
-    const endNumber = 4000;
-
-    const jsonFiles = [];
-
-    // Prepare all file paths based on categories and member numbers
-    for (const category of categories) {
-        for (let i = startNumber; i <= endNumber; i++) {
-            jsonFiles.push(`member/member${category}${i}.json`);
-        }
-    }
-
-    const batchSize = 10;  // Process files in batches of 10
+    const categories = ["ADMIN", "IT", "CSE", "CSE(AI)", "CSE(AIML)", "CS", "ECE", "ME"];
+    const batchSize = 500;  // Process files in batches of 500
     const validMembers = [];  // Array to hold valid member data
     let firstMemberLoaded = false;  // Flag to track if at least one member is loaded
 
-    const fetchMember = async (file) => {
+    // Prepare file paths based on categories and member numbers in batches
+    for (const category of categories) {
+        for (let startNumber = 1; startNumber <= 4000; startNumber += batchSize) {
+            const endNumber = Math.min(startNumber + batchSize - 1, 4000);
+            const jsonFiles = [];
+
+            for (let i = startNumber; i <= endNumber; i++) {
+                jsonFiles.push(`member/member${category}${i}.json`);
+            }
+
+            const promises = jsonFiles.map(fetchMember);
+            await Promise.all(promises);  // Wait for all promises in the current batch to resolve
+        }
+    }
+
+    // Function to fetch individual member data
+    async function fetchMember(file) {
         try {
             const response = await fetch(file);
             if (response.ok) {
@@ -40,10 +44,10 @@ async function fetchMembers() {
         } catch (error) {
             console.error(`Error fetching ${file}:`, error);
         }
-    };
+    }
 
     // Function to display individual member data
-    const displayMember = (data) => {
+    function displayMember(data) {
         const memberCard = document.createElement('div');
         memberCard.className = "cc flex flex-col gap-8 items-center justify-around text-center w-[260px] rounded-lg p-6 shadow-lg";
 
@@ -59,13 +63,6 @@ async function fetchMembers() {
             </div>
         `;
         steeringCouncil.appendChild(memberCard);  // Append member card to the DOM
-    };
-
-    // Function to process files in batches
-    for (let i = 0; i < jsonFiles.length; i += batchSize) {
-        const currentBatch = jsonFiles.slice(i, i + batchSize);
-        const promises = currentBatch.map(fetchMember);
-        await Promise.all(promises);  // Wait for all promises in the current batch to resolve
     }
 
     // If no valid members were fetched, hide the loader and display a message
@@ -76,4 +73,3 @@ async function fetchMembers() {
 }
 
 document.addEventListener('DOMContentLoaded', fetchMembers);
-
